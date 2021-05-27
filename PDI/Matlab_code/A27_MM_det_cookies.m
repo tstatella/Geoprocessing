@@ -18,10 +18,6 @@ figure,imshow(bin);title('Imagem binarizada');
 %que a sua versão binária original. Na subtração no top-hat elima-se o
 %biscoito inteiro, restando o biscoito quebrado.
 
-% ero  = mmero(bin,mmsedisk(60));
-% dil  = mmdil(ero,mmsedisk(65));
-% opth = bin - dil;
-
 SEero  = strel('disk',60);
 SEdil  = strel('disk',70);
 ero    = imerode(bin,SEero);
@@ -29,13 +25,19 @@ dil    = imdilate(ero,SEdil);
 opth   = bin - dil;
 Bc     = bin - opth;%marcadores do biscoito inteiro
 
+figure,imshow(ero);title('Erosão');
+figure,imshow(dil);title('dilatação');
+figure,imshow(opth);title('Top-hat por abertura');
+
 %Recuperando o biscoito quebrado
 BQ = double(opth) .* double(x);
 BQ = uint8(BQ);
+figure,imshow(BQ);title('Biscoito quebrado');
 
 %Recuperando o biscoite inteiro
 B = double(Bc) .* double(x);
 B = uint8(B);
+figure,imshow(B);title('Biscoito inteiro');
 
 %Detectando a fronteira
 SE   = strel('disk',3);
@@ -44,13 +46,11 @@ Fero = imerode(bin,SE);
 F    = uint8((Fdil - Fero) * 255);
 xF   = x + F;%adicionando as bordas à imagem
 
-figure,imshow(ero);title('Erosão');
-figure,imshow(dil);title('dilatação');
-figure,imshow(opth);title('Top-hat por abertura');
-figure,imshow(BQ);title('Biscoito quebrado');
-figure,imshow(B);title('Biscoito inteiro');
 figure,imshowpair(x,BQ);title('Biscoito inteiro e quebrado');
 figure,imshow(xF);title('Fronteiras');
+
+
+
 
 
 
