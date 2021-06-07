@@ -1,9 +1,9 @@
 % Histogram matching
 % Matches the histogram of image 2 to the histogram of the image 1
-
-im1      = imread('pout.tif');% reference image
+Path = '/Users/T_Statella/OneDrive/GitHub/Geoprocessing/PDI/Image_dataset';
+im1      = imread([Path '/pout.tif']);% reference image
 %im2      = uint8(double(im1)*1.5);% image to be modified
-im2      = imread('tire.tif');% image to be modified
+im2      = imread([Path '/tire.tif']);% image to be modified
 
 M        = zeros(2^8,1,'uint8'); %// Store mapping - Cast to uint8 to respect data type
 hist1    = imhist(im1,2^8); %// Compute histograms with 256 bins each

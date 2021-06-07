@@ -12,7 +12,7 @@ disp('*********************************************************************');
 disp(' ');
 disp(' ');
 
-cd('D:\OneDrive\Ensino\Disciplinas\PDI\Aulas_PDI\Banco_Imagens');
+cd('/Users/T_Statella/OneDrive/GitHub/Geoprocessing/PDI/Image_dataset');
 
 %Lendo a imagem com ruído periódico
 d = imread('palhaco.bmp');
