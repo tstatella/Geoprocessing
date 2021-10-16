@@ -4,6 +4,9 @@ clc
 
 pkg load image
 
+% Acessar o diretório em que estão minhas imagens
+cd 'D:\OneDrive\GitHub\Geoprocessing\Digital Image Processing\Image_dataset';
+
 % Fazendo a leitura de uma imagem
 Nome_B1 = 'LANDSAT_5_TM_19860908_226_071_L2_BAND1_Corte.tif';
 Nome_B3 = 'LANDSAT_5_TM_19860908_226_071_L2_BAND3_Corte.tif';
@@ -14,19 +17,15 @@ B3 = imread(Nome_B3); % Lendo o arquivo de imagem na variável img
 B4 = imread(Nome_B4);
 B6 = imread(Nome_B6);
 
-%{ 
-Fazer a visualização da imagem
-figure,imshow(B1);title("Banda 1");
-c=colorbar();
-set(c,'FontSize',20);
-set(gca,'FontSize',40,'visible','on');
-
-figure,imshow(B3);title("Banda 3");
-c=colorbar();
-set(c,'FontSize',20);
-set(gca,'FontSize',40,'visible','on');
-%}
-
+figure;
+subplot(2,2,1),imshow(B1,[]),title('Banda do Azul');
+set(gca,'FontSize',40,'visible','on'),c=colorbar();set(c,'FontSize',40);
+subplot(2,2,2),imshow(B3,[]),title('Banda do Vermelho');
+set(gca,'FontSize',40,'visible','on'),c=colorbar();set(c,'FontSize',40);
+subplot(2,2,3),imshow(B4,[]);title('Banda do IVP');
+set(gca,'FontSize',40,'visible','on'),c=colorbar();set(c,'FontSize',40);
+subplot(2,2,4),imshow(B6,[]);title('Banda do Termal');
+set(gca,'FontSize',40,'visible','on'),c=colorbar();set(c,'FontSize',40);
 
 %Converter de inteiro para double
 B1 = double(B1);
@@ -99,8 +98,8 @@ NDVI = (ro4 - ro3) ./ (ro4 + ro3);
 
 figure,imshow(NDVI,'DisplayRange',[],'colormap',jet);title("NDVI");
 c=colorbar();
-set(c,'FontSize',12);
-set(gca,'FontSize',12,'visible','on');
+set(c,'FontSize',40);
+set(gca,'FontSize',40,'visible','on');
 
 
 
