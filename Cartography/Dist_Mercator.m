@@ -31,15 +31,6 @@ e  = sqrt(e2);
 %Definição do reticulado
 [Lon,Lat] = meshgrid(LimLon1:StepLon:LimLon2,LimLat1:StepLat:LimLat2);
 
-%Cálculo das coordenadas [X Y]. 
-X        = a * (Lon - Lon0);
-potencia = e / 2;
-tangente = tan((45 * pi / 180) + (Lat / 2));
-aux1     = 1 - (e * sin(Lat));
-aux2     = 1 + (e * sin(Lat));
-aux      = aux1 ./ aux2;
-Y        = a * log(tangente .* aux.^potencia);
-
 m = sqrt(1 - (e2 * sin(deg2rad(Lat)).^2)) ./ cos(deg2rad(Lat));
 
 %Plotando a distorção

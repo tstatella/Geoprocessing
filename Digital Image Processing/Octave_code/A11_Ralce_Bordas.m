@@ -2,6 +2,7 @@
 clc;
 clear all;
 close all;
+pkg load image
 
 disp('*********************************************************************');
 disp('****        Código criado pelo Prof. Dr. Thiago Statella         ****');
@@ -11,9 +12,10 @@ disp('*********************************************************************');
 disp(' ');
 disp(' ');
 
-cd('D:\OneDrive\Documentos\Docência\Disciplinas\PDI\Aulas_PDI\Banco_Imagens');
+cd('D:\OneDrive\Projetos\Extensao\Projeto_Extensao_Edital_85_2021_PDI_MOOC\Banco_de_Imagens');
 
-Get = imread('sjnirautocontr8bit.tif');
+img = imread('janela.jpg');
+
 
 %Operador de Prewitt******************************************************
 %Máscara vertical
@@ -21,7 +23,7 @@ Get = imread('sjnirautocontr8bit.tif');
 % 0 0 0
 %-1 -1 -1]
 pH   = fspecial('prewitt');%Máscara vertical para detectar bordas horizontais
-P_H  = filter2(pH,Get,'same');
+P_H  = filter2(pH,img,'same');
 %P_H será double com negativos
 %eliminando os negativos fazendo o módulo e reescalonando
 P_H    = abs(P_H);%fazendo o módulo
@@ -31,7 +33,7 @@ P_Hs   = uint8(P_Hs);%para visualização
 
 %Máscara horizontal para detectar bordas verticais
 pV     = pH';
-P_V    = filter2(pV,Get,'same');
+P_V    = filter2(pV,img,'same');
 P_V    = abs(P_V);
 Scale  = max(P_V(:));
 P_Vs   = P_V * (255 / Scale);
@@ -49,7 +51,7 @@ P_H_Vs = uint8(P_H_Vs);
 % 0 0 0
 %-1 -2 -1]
 sH   = fspecial('sobel');
-S_H  = filter2(sH,Get,'same');
+S_H  = filter2(sH,img,'same');
 S_H    = abs(S_H);%fazendo o módulo
 Scale  = max(S_H(:));
 S_Hs   = S_H * (255 / Scale); %escalonando para [0,255]
@@ -57,7 +59,7 @@ S_Hs   = uint8(S_Hs);%para visualização
 
 %Máscara horizontal para detectar bordas verticais
 sV     = sH';
-S_V    = filter2(sV,Get,'same');
+S_V    = filter2(sV,img,'same');
 S_V    = abs(S_V);
 Scale  = max(S_V(:));
 S_Vs   = S_V * (255 / Scale);
@@ -74,13 +76,13 @@ S_H_Vs = uint8(S_H_Vs);
 
 rd1    = [1 0;0 -1];
 rd2    = [0 1;-1 0];
-R_d1   = filter2(rd1,Get,'same');
+R_d1   = filter2(rd1,img,'same');
 R_d1   = abs(R_d1);%fazendo o módulo
 Scale  = max(R_d1(:));
 R_d1s  = R_d1 * (255 / Scale); %escalonando para [0,255]
 R_d1s  = uint8(R_d1s);%para visualização
 
-R_d2   = filter2(rd2,Get,'same');
+R_d2   = filter2(rd2,img,'same');
 R_d2   = abs(R_d2);%fazendo o módulo
 Scale  = max(R_d2(:));
 R_d2s  = R_d2 * (255 / Scale); %escalonando para [0,255]
@@ -95,9 +97,9 @@ R_d1_d2s = uint8(R_d1_d2s);
 %Laplaciano***************************************************************
 
 h = [0 -1 0; -1 5 -1;0 -1 0];
-L = filter2(h,Get,'same');
+L = filter2(h,img,'same');
 % fazendo valores negativos iguais a zero
-[m,n] = size(Get);
+[m,n] = size(img);
 for i = 1 : m
     for j = 1 : n
         if L(i,j) < 0
@@ -110,7 +112,7 @@ Scale = max(L(:));
 Ls    = L * (255 / Scale);
 Ls    = uint8(Ls);
 
-figure,imshow(Get),title('Imagem original');
+figure,imshow(img),title('Imagem original');
 %Prewitt
 figure,imshow(P_Hs),title('Prewitt (Bordas horizontais)');
 figure,imshow(P_Vs),title('Prewitt (Bordas verticais)');
