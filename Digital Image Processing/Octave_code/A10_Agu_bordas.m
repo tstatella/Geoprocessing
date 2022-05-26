@@ -1,7 +1,5 @@
 %Aguçamento
-clc;
-clear all;
-close all;
+pkg load image
 
 disp('*********************************************************************');
 disp('****        Código criado pelo Prof. Dr. Thiago Statella         ****');
